@@ -1,0 +1,11 @@
+name: 'Wokwi CI Server Action'
+description: 'This action runs a Wokwi CI Server inside a GitHub Actions workflow'
+    
+runs:
+  using: 'composite'
+  steps:
+    - name: Run the CI Server and configure the environment
+      shell: bash
+      run: |
+        docker run -d -p 9177:3000 --name wokwi-ci-server wokwi/wokwi-ci-server
+        echo "WOKWI_CLI_SERVER=ws://localhost:9177" >> $GITHUB_ENV
